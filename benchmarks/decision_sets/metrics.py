@@ -1,6 +1,5 @@
 """One scoring for every set: per set and question type, accuracy (the most probable key is the right one; a row that could not be asked is wrong),
-mean NLL of the right key (probability floored at 1e-6, rows that were answered), top-probability ECE (10 bins) and, for tfu, the unsure rate.
-OpenDecisions also gets its own Capability score (vendored scorer, see vendor/)."""
+mean NLL of the right key (probability floored at 1e-6, rows that were answered), top-probability ECE (10 bins) and, for tfu, the unsure rate."""
 from __future__ import annotations
 
 import math

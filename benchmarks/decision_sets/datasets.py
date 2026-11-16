@@ -12,9 +12,6 @@ import json
 from pathlib import Path
 
 DATASETS = {
-    "opendecisions": {"repo": "jgeuter/OpenDecisions", "note": "2352 decisions, JevBench v1.6 composition, evaluation only"},
-    "jeval": {"repo": "carlosxiang/JEVal", "note": "11257 examples from 36 public datasets (choice / noul / score)"},
-    "typed-decision-bench": {"repo": "SamuelChien821/typed-decision-bench", "note": "5028 states with 1-10 typed questions each, 21 public datasets"},
     "decision-questions": {"repo": "mihailgribov/decision-questions", "note": "3358 questions: noul / tfu / choice / score"},
 }
 
@@ -31,56 +28,6 @@ def _lines(p: Path):
                 yield json.loads(line)
 
 
-def opendecisions(limit: int = 0) -> list[dict]:
-    out = []
-    for r in _lines(_get(DATASETS["opendecisions"]["repo"], "opendecisions.jsonl")):
-        q = r["question"]
-        out.append({"id": r["id"], "dataset": "opendecisions", "type": q["type"], "state": r["state"],
-                    "question": {"instructions": q["instructions"], "criteria": q.get("criteria")},
-                    "keys": ["yes", "no"] if q["type"] == "noul" else list(r["labels"]), "expected": str(r["expected"]),
-                    "tier": r.get("tier"), "raw": r})
-    return out[:limit] if limit else out
-
-
-def jeval(limit: int = 0) -> list[dict]:
-    import pyarrow.parquet as pq
-    out = []
-    for r in pq.read_table(_get(DATASETS["jeval"]["repo"], "data/test.parquet")).to_pylist():
-        (qk, q), = json.loads(r["questions_json"]).items()
-        label = json.loads(r["label_json"])
-        t = q["type"]
-        if t == "noul":
-            keys, exp = ["yes", "no"], ("yes" if int(label) == 1 else "no")          # label 1 = the true side
-        elif t == "score":
-            keys, exp = [str(i) for i in range(len(q["criteria"]))], str(int(label))
-        else:
-            keys, exp = list(q["criteria"]), str(label)
-        out.append({"id": r["id"], "dataset": "jeval", "type": t, "state": r["state"], "source": r["source"],
-                    "question": {"instructions": q["instructions"], "criteria": q.get("criteria")}, "keys": keys, "expected": exp})
-    return out[:limit] if limit else out
-
-
-def typed_decision_bench(limit: int = 0) -> list[dict]:
-    out = []
-    for suite in ("data-and-operations", "real-time-and-agents", "retrieval-and-knowledge", "safety-and-quality", "workflow-control"):
-        for r in _lines(_get(DATASETS["typed-decision-bench"]["repo"], f"bench/suites/{suite}/items.jsonl")):
-            if not r.get("questions"):                                                # 359 items carry no question body in the public file
-                continue
-            for qk, q in r["questions"].items():
-                if qk not in (r.get("gold") or {}):                                      # a question without a published answer cannot be scored
-                    continue
-                g, t = r["gold"][qk], q["type"]
-                if t == "noul":
-                    keys, exp = ["yes", "no"], ("yes" if int(g) == 1 else "no")
-                elif t == "score":
-                    keys, exp = [str(i) for i in range(len(q["criteria"]))], str(int(g))
-                else:
-                    keys, exp = list(q["criteria"]), str(g)
-                out.append({"id": f"{r['id']}::{qk}", "dataset": "typed-decision-bench", "type": t, "state": r["state"], "suite": suite,
-                            "question": {"instructions": q["instructions"], "criteria": q.get("criteria")}, "keys": keys, "expected": exp})
-    return out[:limit] if limit else out
-
-
 def decision_questions(limit: int = 0) -> list[dict]:
     out = []
     for r in _lines(_get(DATASETS["decision-questions"]["repo"], "data/test.jsonl")):
@@ -95,7 +42,7 @@ def decision_questions(limit: int = 0) -> list[dict]:
     return out[:limit] if limit else out
 
 
-LOADERS = {"opendecisions": opendecisions, "jeval": jeval, "typed-decision-bench": typed_decision_bench, "decision-questions": decision_questions}
+LOADERS = {"decision-questions": decision_questions}
 
 
 # ---- sets without a third answer: loaded from the Hub (or the authors' GitHub repository at a pinned commit) and drawn with a fixed seed ----

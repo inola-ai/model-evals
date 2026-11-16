@@ -14,7 +14,6 @@ The harness is `benchmarks/decision_sets`: every set is loaded from its authors'
 | `arc` | [allenai/ai2_arc](https://huggingface.co/datasets/allenai/ai2_arc) | ARC-Challenge, multiple choice |
 | `helpsteer` | [nvidia/HelpSteer](https://huggingface.co/datasets/nvidia/HelpSteer) | rate the helpfulness of a response, five levels |
 
-The harness also loads `opendecisions`, `jeval` and `typed-decision-bench`; they have not been run for any version yet.
 Per question: `id, type, expected, probs, logits`; per set and kind: accuracy ± binomial SE (one SE, not a 95% interval), the NLL of the right answer and the ECE of the confidence in the most probable answer (10 equal-width bins). The probabilities are the calibrated ones the model ships with.
 A question that cannot be asked counts as wrong.
 
