@@ -31,7 +31,6 @@ tools/                           builders of the quality pages
 
 | model | page |
 |---|---|
-| Intent | [models/intent](models/intent/) |
 | Decider | [models/decider](models/decider/) |
 
 ## Licence
