@@ -1,0 +1,26 @@
+{
+ "date": "2026-11-16",
+ "model": "Inola Decider Open",
+ "version": "1.1.0",
+ "how_called": "weights, local: typecastlm Reader over the release directory (the checkpoint format of the typecastlm package), temperatures and shift from its prompt.json",
+ "harness": "benchmarks/decision_sets (commit: see the repository history of this directory)",
+ "command": "python -m decision_sets run --model <release dir> --out <dir> --sets helpsteer",
+ "hardware": "NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 580.178.04",
+ "software": {
+  "python": "3.12.3",
+  "torch": "2.10.0+cu128",
+  "transformers": "5.3.0"
+ },
+ "sampling": "none: one forward pass per question; sets of more than 3000 questions are drawn with seed 0 (BoolQ)",
+ "weights_sha256": {
+  "model-00001-of-00005.safetensors": "9758723a4cb6f1441887eb926cef98db978f6e3bdeed19803f43805966b8e18b",
+  "model-00002-of-00005.safetensors": "e2f0386efb67d05abbfceb1ac7436e4bd7d12e07babaf6c3d8f7461b7f4f28c5",
+  "model-00003-of-00005.safetensors": "c0101a673f0b126d2ca54876c25717e3047ab5b7ea0e7852a8ed3be01071403e",
+  "model-00004-of-00005.safetensors": "a4fd4209b64af8e2a297fb8654705cccbf2a52d8feb7d02f514438baf9eee5ca",
+  "model-00005-of-00005.safetensors": "b771bf3030d57ab7931f0ea44d643b7c189742d7b652e1d111715f7f70aec11f",
+  "head.json": "1ec6cc3359c058e358e4ddf170d96953a7f1a5136c816baef0ca870ae16b50d8",
+  "prompt.json": "2da791e144ba8f9353d722a911256d3b27c07475a28938b9b450349c5e90d1b7",
+  "config.json": "29633f08b2bf62aa2aa976e0bcc4f474639dc2880eaa04025e37705903f7b659"
+ },
+ "excluded_ids": "questions whose state text occurs in the training data (tools/overlap.py); left out of metrics.json"
+}
