@@ -4,20 +4,23 @@
   "left_out": 0,
   "accuracy": 0.8273,
   "accuracy_se": 0.0321,
-  "nll": 0.3948
+  "nll": 0.3948,
+  "ece": 0.0816
  },
  "noul": {
   "questions": 74,
   "left_out": 0,
   "accuracy": 0.9189,
   "accuracy_se": 0.0317,
-  "nll": 0.2598
+  "nll": 0.2598,
+  "ece": 0.0392
  },
  "score": {
   "questions": 18,
   "left_out": 0,
   "accuracy": 0.8333,
   "accuracy_se": 0.0878,
-  "nll": 0.2882
+  "nll": 0.2882,
+  "ece": 0.1241
  }
 }

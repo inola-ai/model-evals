@@ -8,7 +8,7 @@ LABEL = {"jevbench": "JevBench public items", "boolq": "BoolQ (validation)", "ar
 for m in sorted(d.glob("results/*/*/metrics.json")):
     s, v = m.parent.parent.name, m.parent.name
     for kind, x in json.loads(m.read_text()).items():
-        rows.append(f"| {v} | {LABEL.get(s, s)} | `{kind}` | {x['questions']} | {x['accuracy']:.3f} ± {x['accuracy_se']:.3f} | {x['nll']:.3f} | {x['left_out']} |")
-table = "| version | set | kind | questions | accuracy | NLL | left out |\n|---|---|---|---|---|---|---|\n" + "\n".join(rows)
+        rows.append(f"| {v} | {LABEL.get(s, s)} | `{kind}` | {x['questions']} | {x['accuracy']:.3f} ± {x['accuracy_se']:.3f} | {x['nll']:.3f} | {x['ece']:.3f} | {x['left_out']} |")
+table = "| version | set | kind | questions | accuracy ± SE | NLL | ECE | left out |\n|---|---|---|---|---|---|---|---|\n" + "\n".join(rows)
 p = d / "README.md"; t = p.read_text(); a, b = t.index("<!-- results -->") + len("<!-- results -->"), t.index("<!-- /results -->")
 p.write_text(t[:a] + "\n\n" + table + "\n\n" + t[b:]); print(f"{len(rows)} rows -> {p}")

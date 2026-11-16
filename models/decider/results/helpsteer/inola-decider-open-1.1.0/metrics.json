@@ -4,6 +4,7 @@
   "left_out": 0,
   "accuracy": 0.4807,
   "accuracy_se": 0.0118,
-  "nll": 1.2638
+  "nll": 1.2638,
+  "ece": 0.0719
  }
 }

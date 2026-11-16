@@ -15,29 +15,29 @@ The harness is `benchmarks/decision_sets`: every set is loaded from its authors'
 | `helpsteer` | [nvidia/HelpSteer](https://huggingface.co/datasets/nvidia/HelpSteer) | rate the helpfulness of a response, five levels |
 
 The harness also loads `opendecisions`, `jeval` and `typed-decision-bench`; they have not been run for any version yet.
-Per question: `id, type, expected, probs, logits`; per set and kind: accuracy ± binomial SE and the NLL of the right answer.
+Per question: `id, type, expected, probs, logits`; per set and kind: accuracy ± binomial SE (one SE, not a 95% interval), the NLL of the right answer and the ECE of the confidence in the most probable answer (10 equal-width bins). The probabilities are the calibrated ones the model ships with.
 A question that cannot be asked counts as wrong.
 
 ## Before a number is published
 
-Each set is checked against the training data of the measured version (by state text, `tools/overlap.py`). The questions that share text are listed in
+Each set is checked against the training data of the measured version (by state text, `tools/overlap.py`). The check is exact: two runs of at least 30 plain characters of each state are searched verbatim, so paraphrases and near-duplicates are not found. The questions that share text are listed in
 `excluded_ids.json` next to the answers and are left out of every number; the count is in the last column.
 
 ## Results
 
 <!-- results -->
 
-| version | set | kind | questions | accuracy | NLL | left out |
-|---|---|---|---|---|---|---|
-| inola-decider-open-1.1.0 | ARC-Challenge (test) | `choice` | 1170 | 0.920 ± 0.008 | 0.275 | 2 |
-| inola-decider-open-1.1.0 | BoolQ (validation) | `noul` | 2881 | 0.876 ± 0.006 | 0.387 | 119 |
-| inola-decider-open-1.1.0 | decision-questions | `choice` | 734 | 0.941 ± 0.009 | 0.177 | 135 |
-| inola-decider-open-1.1.0 | decision-questions | `noul` | 1128 | 0.905 ± 0.009 | 0.268 | 128 |
-| inola-decider-open-1.1.0 | decision-questions | `score` | 161 | 0.783 ± 0.033 | 0.537 | 115 |
-| inola-decider-open-1.1.0 | HelpSteer (validation, helpfulness 0-4) | `score` | 1789 | 0.481 ± 0.012 | 1.264 | 0 |
-| inola-decider-open-1.1.0 | JevBench public items | `choice` | 139 | 0.827 ± 0.032 | 0.395 | 0 |
-| inola-decider-open-1.1.0 | JevBench public items | `noul` | 74 | 0.919 ± 0.032 | 0.260 | 0 |
-| inola-decider-open-1.1.0 | JevBench public items | `score` | 18 | 0.833 ± 0.088 | 0.288 | 0 |
+| version | set | kind | questions | accuracy ± SE | NLL | ECE | left out |
+|---|---|---|---|---|---|---|---|
+| inola-decider-open-1.1.0 | ARC-Challenge (test) | `choice` | 1170 | 0.920 ± 0.008 | 0.275 | 0.034 | 2 |
+| inola-decider-open-1.1.0 | BoolQ (validation) | `noul` | 2881 | 0.876 ± 0.006 | 0.387 | 0.074 | 119 |
+| inola-decider-open-1.1.0 | decision-questions | `choice` | 734 | 0.941 ± 0.009 | 0.177 | 0.028 | 135 |
+| inola-decider-open-1.1.0 | decision-questions | `noul` | 1128 | 0.905 ± 0.009 | 0.268 | 0.047 | 128 |
+| inola-decider-open-1.1.0 | decision-questions | `score` | 161 | 0.783 ± 0.033 | 0.537 | 0.053 | 115 |
+| inola-decider-open-1.1.0 | HelpSteer (validation, helpfulness 0-4) | `score` | 1789 | 0.481 ± 0.012 | 1.264 | 0.072 | 0 |
+| inola-decider-open-1.1.0 | JevBench public items | `choice` | 139 | 0.827 ± 0.032 | 0.395 | 0.082 | 0 |
+| inola-decider-open-1.1.0 | JevBench public items | `noul` | 74 | 0.919 ± 0.032 | 0.260 | 0.039 | 0 |
+| inola-decider-open-1.1.0 | JevBench public items | `score` | 18 | 0.833 ± 0.088 | 0.288 | 0.124 | 0 |
 
 <!-- /results -->
 
