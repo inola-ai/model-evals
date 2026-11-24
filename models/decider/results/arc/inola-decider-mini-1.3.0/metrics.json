@@ -1,0 +1,10 @@
+{
+ "choice": {
+  "questions": 1169,
+  "left_out": 3,
+  "accuracy": 0.9264,
+  "accuracy_se": 0.0076,
+  "nll": 0.2332,
+  "ece": 0.0138
+ }
+}

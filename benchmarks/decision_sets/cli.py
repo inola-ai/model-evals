@@ -2,6 +2,7 @@
 
     inola-bench list
     inola-bench run --model inola-ai/decider-open --out results/open [--sets all] [--limit 200] 
+    inola-bench run --api https://api.inola.tech --model decider-mini --out results/mini [--key-env INOLA_API_KEY]
     inola-bench report results/open
 """
 from __future__ import annotations
@@ -19,6 +20,8 @@ def main(argv=None) -> None:
     r = sub.add_parser("run"); r.add_argument("--model", required=True, help="a model directory or a Hub id (a typecastlm-format checkpoint: prompt.json with the calibration temperatures beside the weights)")
     r.add_argument("--out", required=True); r.add_argument("--sets", default="all"); r.add_argument("--limit", type=int, default=0)
     r.add_argument("--prompt", default="", help="a prompt.json to use instead of the one beside the weights"); r.add_argument("--device", default=None); r.add_argument("--batch", type=int, default=64)
+    r.add_argument("--api", default="", help="the public API's address: the model is called through POST <api>/v1/infer, --model is its name there")
+    r.add_argument("--key-env", default="INOLA_API_KEY", help="with --api: the environment variable that holds the API key"); r.add_argument("--threads", type=int, default=8)
     p = sub.add_parser("report"); p.add_argument("out")
     a = ap.parse_args(argv)
     if a.cmd == "list":
@@ -26,8 +29,14 @@ def main(argv=None) -> None:
             print(f"{k:22s} {v['repo']:40s} {v['note']}")
         return
     if a.cmd == "run":
-        from typecastlm.server import Reader
         names = list(datasets.LOADERS) if a.sets == "all" else a.sets.split(",")
+        if a.api:
+            from . import api
+            out = Path(a.out); got = api.run(a.api, a.key_env, a.model, names, out, a.limit, a.threads)
+            print(f"versions answered: {got['versions']}")
+            print(f"report: {report.build(out, a.model)}")
+            return
+        from typecastlm.server import Reader
         rd = Reader(a.model, device=a.device or "auto", prompt=a.prompt or None)
         print(f"model {a.model}: {rd.describe()}", flush=True)
         out = Path(a.out); runner.run(rd, names, out, a.limit, a.batch)

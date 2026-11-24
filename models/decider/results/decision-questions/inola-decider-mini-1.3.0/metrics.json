@@ -1,0 +1,26 @@
+{
+ "choice": {
+  "questions": 754,
+  "left_out": 115,
+  "accuracy": 0.935,
+  "accuracy_se": 0.009,
+  "nll": 0.1722,
+  "ece": 0.027
+ },
+ "noul": {
+  "questions": 1152,
+  "left_out": 104,
+  "accuracy": 0.9089,
+  "accuracy_se": 0.0085,
+  "nll": 0.2208,
+  "ece": 0.0166
+ },
+ "score": {
+  "questions": 190,
+  "left_out": 86,
+  "accuracy": 0.7737,
+  "accuracy_se": 0.0304,
+  "nll": 0.5483,
+  "ece": 0.0704
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "date": "2026-11-24",
+ "model": "Inola Decider mini",
+ "version": "1.3.0",
+ "how_called": "the public API: POST https://api.inola.tech/v1/infer, model decider-mini; the version is the one the API answered with on every question. The API returns calibrated probabilities, no logits. A question of kind tfu is asked as a choice of three (true / false / unknown) and is not scored",
+ "harness": "benchmarks/decision_sets (--api, benchmarks/decision_sets/api.py)",
+ "command": "python -m decision_sets run --api https://api.inola.tech --model decider-mini --out <dir> --sets boolq --threads 8",
+ "hardware": "the service's host: one NVIDIA RTX A4000",
+ "sampling": "none: one call per question; sets of more than 3000 questions are drawn with seed 0 (BoolQ). Questions that got HTTP 503 (overloaded) were asked again",
+ "excluded_ids": "questions whose state text occurs in the training data of this version (tools/overlap.py); left out of metrics.json"
+}

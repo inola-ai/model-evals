@@ -1,0 +1,10 @@
+{
+ "score": {
+  "questions": 1789,
+  "left_out": 0,
+  "accuracy": 0.4148,
+  "accuracy_se": 0.0116,
+  "nll": 1.2964,
+  "ece": 0.1233
+ }
+}
