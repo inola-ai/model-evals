@@ -32,6 +32,7 @@ tools/                           builders of the quality pages
 | model | page |
 |---|---|
 | Decider | [models/decider](models/decider/) |
+| Cordon | [models/cordon](models/cordon/) |
 
 ## Licence
 

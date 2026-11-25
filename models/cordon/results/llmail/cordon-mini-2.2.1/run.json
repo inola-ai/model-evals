@@ -1,0 +1,17 @@
+{
+ "date": "2026-11-25",
+ "model": "Inola Cordon mini",
+ "version": "2.2.1",
+ "harness": "benchmarks/injection (commit: see the repository history of this directory)",
+ "software": {
+  "python": "3.12.3"
+ },
+ "training_overlap": "not checked yet: whether texts of this set occur in the training data of 2.2.1 is not verified; the page says so beside the numbers",
+ "how_called": "public API https://api.inola.ai: 1,344 emails one request each (POST /v1/infer), 23,418 through the Batch API (one batch, POST /v1/files + POST /v1/batches); model cordon-mini, version 2.2.1 pinned in every request",
+ "command": "python3 batch.py llmail --out runs/llmail/cordon-mini-2.2.1 --spec inola:cordon-mini@2.2.1; python -m llmail_eval report --out runs/llmail/cordon-mini-2.2.1 --name 'Inola Cordon mini 2.2.1'",
+ "data": "microsoft/llmail-inject-challenge @ 1063bdf0, sha256-checked (llmail_eval/data.py)",
+ "billed": {
+  "batch_documents": 23418,
+  "batch_input_tokens": 15142666
+ }
+}

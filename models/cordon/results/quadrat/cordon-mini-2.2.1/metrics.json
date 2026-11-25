@@ -1,0 +1,81 @@
+{
+ "versions": [
+  "2.2.1"
+ ],
+ "scored": 79800,
+ "injected": 16800,
+ "clean": 63000,
+ "not_judged": 0,
+ "points": [
+  {
+   "fpr": 0.01,
+   "threshold": 0.040295,
+   "recall": 0.99851,
+   "false_positives": 603,
+   "recall_by_carrier": {
+    "email": 0.99756,
+    "doc": 0.99949,
+    "web": 0.99852
+   }
+  },
+  {
+   "fpr": 0.001,
+   "threshold": 0.749862,
+   "recall": 0.9928,
+   "false_positives": 49,
+   "recall_by_carrier": {
+    "email": 0.98685,
+    "doc": 0.99814,
+    "web": 0.99386
+   }
+  },
+  {
+   "fpr": 0.0005,
+   "threshold": 0.981725,
+   "recall": 0.98143,
+   "false_positives": 10,
+   "recall_by_carrier": {
+    "email": 0.96656,
+    "doc": 0.99527,
+    "web": 0.98347
+   }
+  },
+  {
+   "fpr": 0.0002,
+   "threshold": 0.981725,
+   "recall": 0.98143,
+   "false_positives": 10,
+   "recall_by_carrier": {
+    "email": 0.96656,
+    "doc": 0.99527,
+    "web": 0.98347
+   }
+  },
+  {
+   "fpr": 0.0001,
+   "threshold": 0.9999,
+   "recall": 0.0,
+   "false_positives": 0,
+   "recall_by_carrier": {
+    "email": 0.0,
+    "doc": 0.0,
+    "web": 0.0
+   }
+  },
+  {
+   "fpr": 5e-05,
+   "threshold": 0.9999,
+   "recall": 0.0,
+   "false_positives": 0,
+   "recall_by_carrier": {
+    "email": 0.0,
+    "doc": 0.0,
+    "web": 0.0
+   }
+  }
+ ],
+ "own_verdict": {
+  "recall": 0.9919,
+  "false_positives": 37
+ }
+}

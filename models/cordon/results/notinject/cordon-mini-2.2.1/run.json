@@ -1,0 +1,13 @@
+{
+ "date": "2026-11-25",
+ "model": "Inola Cordon mini",
+ "version": "2.2.1",
+ "harness": "benchmarks/injection (commit: see the repository history of this directory)",
+ "software": {
+  "python": "3.12.3"
+ },
+ "training_overlap": "not checked yet: whether texts of this set occur in the training data of 2.2.1 is not verified; the page says so beside the numbers",
+ "how_called": "public API https://api.inola.ai, one request per prompt (POST /v1/infer), model cordon-mini, version 2.2.1 pinned",
+ "command": "python -m notinject_eval score --detector inola:cordon-mini@2.2.1 --out runs/notinject/cordon-mini-2.2.1; python -m notinject_eval report --out runs/notinject/cordon-mini-2.2.1 --name 'Inola Cordon mini 2.2.1'",
+ "data": "leolee99/PIGuard @ 1b5751e8 (NotInject one, two, three)"
+}

@@ -1,0 +1,17 @@
+{
+ "date": "2026-11-25",
+ "model": "Inola Cordon mini",
+ "version": "2.2.1",
+ "harness": "benchmarks/injection (commit: see the repository history of this directory)",
+ "software": {
+  "python": "3.12.3"
+ },
+ "training_overlap": "not checked yet: whether texts of this set occur in the training data of 2.2.1 is not verified; the page says so beside the numbers",
+ "how_called": "public API https://api.inola.ai: 71,737 rows through the Batch API (two batches), the rest one request each (POST /v1/infer, batch.py --online) while the batches ran; model cordon-mini, version 2.2.1 pinned; where both answered, the first answer is kept",
+ "command": "python3 batch.py quadrat --out runs/quadrat/cordon-mini-2.2.1 --spec inola:cordon-mini@2.2.1; python3 quadrat.py report --out runs/quadrat/cordon-mini-2.2.1 --name 'Inola Cordon mini 2.2.1'",
+ "data": "mihailgribov/quadrat-ipi v1.0.2, positives.jsonl and negatives.jsonl, sha256-checked (quadrat.py)",
+ "billed": {
+  "batch_documents": 71737,
+  "batch_input_tokens": 67146057
+ }
+}

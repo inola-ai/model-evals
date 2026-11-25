@@ -1,2 +1,4 @@
 __pycache__/
 *.pyc
+benchmarks/injection/data/
+benchmarks/injection/runs/
